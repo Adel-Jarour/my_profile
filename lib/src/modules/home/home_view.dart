@@ -9,26 +9,13 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF020617),
+      backgroundColor: const Color(0xFFebeae6),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
           final isDesktop = maxWidth >= 1024;
 
-          return Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF020617),
-                  Color(0xFF020617),
-                  Color(0xFF020617),
-                  Color(0xFF020617),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: SingleChildScrollView(
+          return SingleChildScrollView(
               controller: controller.scrollController,
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
               child: Column(
@@ -90,9 +77,9 @@ class _HeaderBar extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: const Color(0xFF020617).withOpacity(0.85),
+          color: const Color(0xFFebeae6),
           borderRadius: BorderRadius.circular(999),
-          border: Border.all(color: const Color(0xFF111827)),
+          border: Border.all(color: const Color(0xFF323639).withOpacity(0.12)),
         ),
         child: Row(
           children: [
@@ -108,7 +95,7 @@ class _HeaderBar extends StatelessWidget {
             Text(
               'MyProfile',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Colors.white,
+                    color: const Color(0xFF323639),
                     fontWeight: FontWeight.w600,
                   ),
             ),
@@ -130,15 +117,15 @@ class _HeaderBar extends StatelessWidget {
                   Text(
                     'Our journal',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Colors.white70,
+                          color: const Color(0xFF323639).withOpacity(0.6),
                         ),
                   ),
                   const SizedBox(width: 12),
                   FilledButton(
                     onPressed: () {},
                     style: FilledButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
+                      backgroundColor: const Color(0xFFfa824c),
+                      foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 18,
                         vertical: 10,
@@ -156,7 +143,7 @@ class _HeaderBar extends StatelessWidget {
                 onPressed: () {
                   showModalBottomSheet<void>(
                     context: context,
-                    backgroundColor: const Color(0xFF020617),
+                    backgroundColor: const Color(0xFFebeae6),
                     shape: const RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(24)),
@@ -213,7 +200,7 @@ class _HeaderBar extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.menu_rounded,
-                  color: Colors.white,
+                  color: Color(0xFF323639),
                 ),
               ),
           ],
@@ -260,14 +247,15 @@ class _NavItem extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color:
-                    isActive ? Colors.white.withOpacity(0.16) : Colors.transparent,
+                color: isActive
+                    ? const Color(0xFFfa824c).withOpacity(0.12)
+                    : Colors.transparent,
                 borderRadius: BorderRadius.circular(999),
               ),
               child: Text(
                 label,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Colors.white,
+                      color: const Color(0xFF323639),
                       fontWeight:
                           selected ? FontWeight.w600 : FontWeight.w400,
                     ),
@@ -300,7 +288,7 @@ class _HeroSection extends StatelessWidget {
         Text(
           'Flutter Developer • Mobile & Web',
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                color: const Color(0xFF38BDF8),
+                color: const Color(0xFFfa824c),
               ),
         ),
         const SizedBox(height: 16),
@@ -317,23 +305,14 @@ class _HeroSection extends StatelessWidget {
           spacing: 16,
           runSpacing: 12,
           children: [
-            FilledButton.icon(
-              onPressed: () {},
-              style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFF38BDF8),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(999),
-                ),
-              ),
-              icon: const Icon(Icons.mail_outline),
-              label: const Text('Contact Me'),
+            _ContactPillButton(
+              label: 'Contact',
+              onTap: () => Get.find<HomeController>().onNavTap(4),
             ),
             OutlinedButton.icon(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Color(0xFF38BDF8)),
+                side: const BorderSide(color: Color(0xFFfa824c)),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                 shape: RoundedRectangleBorder(
@@ -358,8 +337,8 @@ class _HeroSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(32),
         gradient: const LinearGradient(
           colors: [
-            Color(0xFF0F172A),
-            Color(0xFF0B1220),
+            Color(0xFF323639),
+            Color(0xFF131516),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -372,7 +351,7 @@ class _HeroSection extends StatelessWidget {
             child: Image.network(
               'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg',
               fit: BoxFit.cover,
-              color: Colors.black.withOpacity(0.4),
+              color: Colors.black.withOpacity(0.3),
               colorBlendMode: BlendMode.darken,
             ),
           ),
@@ -382,7 +361,7 @@ class _HeroSection extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     Colors.transparent,
-                    const Color(0xFF0B1120).withOpacity(0.9),
+                    const Color(0xFF131516).withOpacity(0.92),
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -456,10 +435,10 @@ class _SkillsSection extends GetView<HomeController> {
             .map(
               (skill) => Chip(
                 label: Text(skill),
-                backgroundColor: const Color(0xFF020617),
-                side: const BorderSide(color: Color(0xFF1F2937)),
+                backgroundColor: const Color(0xFFebeae6),
+                side: const BorderSide(color: Color(0xFF323639)),
                 labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Colors.white,
+                      color: const Color(0xFF323639),
                     ),
               ),
             )
@@ -557,9 +536,9 @@ class _SectionContainer extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFF020617),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFF111827)),
+        border: Border.all(color: const Color(0xFF323639).withOpacity(0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -592,9 +571,9 @@ class _ProjectCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Ink(
         decoration: BoxDecoration(
-          color: const Color(0xFF020617),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: const Color(0xFF111827)),
+          border: Border.all(color: const Color(0xFF323639).withOpacity(0.1)),
         ),
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -618,13 +597,13 @@ class _ProjectCard extends StatelessWidget {
                 Text(
                   'View details',
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: const Color(0xFF38BDF8),
+                        color: const Color(0xFFfa824c),
                       ),
                 ),
                 const Icon(
                   Icons.arrow_outward_rounded,
                   size: 18,
-                  color: Color(0xFF38BDF8),
+                  color: Color(0xFFfa824c),
                 ),
               ],
             ),
@@ -646,28 +625,84 @@ class _ContactItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 32,
-          height: 32,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xFF111827),
-          ),
-          child: Icon(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFebeae6),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: const Color(0xFF323639).withOpacity(0.18)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
             icon,
             size: 18,
-            color: const Color(0xFF38BDF8),
+            color: const Color(0xFF323639),
           ),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ContactPillButton extends StatelessWidget {
+  const _ContactPillButton({
+    required this.label,
+    required this.onTap,
+  });
+
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 44,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          color: const Color(0xFFfa824c),
+          borderRadius: BorderRadius.circular(999),
         ),
-        const SizedBox(width: 8),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodyMedium,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(width: 16),
+            Text(
+              label,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            const SizedBox(width: 16),
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: const Color(0xFFfa824c),
+                  width: 2,
+                ),
+              ),
+              child: const Icon(
+                Icons.south_east_rounded,
+                size: 16,
+                color: Color(0xFF323639),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

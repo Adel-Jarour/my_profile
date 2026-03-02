@@ -18,23 +18,31 @@ class MyApp extends StatelessWidget {
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0F172A)),
-        scaffoldBackgroundColor: const Color(0xFF020617),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFfa824c), // primary
+          primary: const Color(0xFFfa824c),
+          secondary: const Color(0xFFebeae6),
+          surface: const Color(0xFFebeae6),
+          onPrimary: Colors.white,
+          onSecondary: const Color(0xFF323639),
+          onSurface: const Color(0xFF323639),
+        ),
+        scaffoldBackgroundColor: const Color(0xFFebeae6), // second color
         useMaterial3: true,
         textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Color(0xFF323639), // third color
           ),
           titleLarge: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w600,
-            color: Colors.white,
+            color: Color(0xFF323639),
           ),
           bodyMedium: TextStyle(
             fontSize: 14,
-            color: Color(0xFF9CA3AF),
+            color: Color(0xFF323639),
           ),
         ),
       ),
