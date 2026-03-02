@@ -9,45 +9,64 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF020617),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final isWide = constraints.maxWidth >= 900;
-          return Row(
-            children: [
-              if (isWide)
-                _SideBar(
-                  controller: controller,
-                ),
-              Expanded(
-                child: SingleChildScrollView(
-                  controller: controller.scrollController,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 24,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (!isWide)
-                        _TopBar(
-                          controller: controller,
-                        ),
-                      const SizedBox(height: 32),
-                      _HeroSection(isWide: isWide),
-                      const SizedBox(height: 64),
-                      _AboutSection(),
-                      const SizedBox(height: 64),
-                      _SkillsSection(),
-                      const SizedBox(height: 64),
-                      _ProjectsSection(),
-                      const SizedBox(height: 64),
-                      _ContactSection(),
-                      const SizedBox(height: 32),
-                    ],
-                  ),
-                ),
+          final maxWidth = constraints.maxWidth;
+          final isDesktop = maxWidth >= 1024;
+
+          return Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF020617),
+                  Color(0xFF020617),
+                  Color(0xFF020617),
+                  Color(0xFF020617),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-            ],
+            ),
+            child: SingleChildScrollView(
+              controller: controller.scrollController,
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _HeaderBar(
+                    controller: controller,
+                    isDesktop: isDesktop,
+                  ),
+                  const SizedBox(height: 40),
+                  Container(
+                    key: controller.sectionKeys[0],
+                    child: _HeroSection(isWide: isDesktop),
+                  ),
+                  const SizedBox(height: 80),
+                  Container(
+                    key: controller.sectionKeys[1],
+                    child: _AboutSection(),
+                  ),
+                  const SizedBox(height: 80),
+                  Container(
+                    key: controller.sectionKeys[2],
+                    child: _SkillsSection(),
+                  ),
+                  const SizedBox(height: 80),
+                  Container(
+                    key: controller.sectionKeys[3],
+                    child: _ProjectsSection(),
+                  ),
+                  const SizedBox(height: 80),
+                  Container(
+                    key: controller.sectionKeys[4],
+                    child: _ContactSection(),
+                  ),
+                  const SizedBox(height: 40),
+                ],
+              ),
+            ),
           );
         },
       ),
@@ -55,88 +74,155 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-class _TopBar extends StatelessWidget {
-  const _TopBar({required this.controller});
+class _HeaderBar extends StatelessWidget {
+  const _HeaderBar({
+    required this.controller,
+    required this.isDesktop,
+  });
 
   final HomeController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          'MyProfile',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        const Spacer(),
-        Obx(
-          () => Row(
-            children: [
-              for (var i = 0; i < controller.sections.length; i++)
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: _NavItem(
-                    label: controller.sections[i],
-                    selected: controller.currentSection.value == i,
-                    onTap: () => controller.changeSection(i),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _SideBar extends StatelessWidget {
-  const _SideBar({required this.controller});
-
-  final HomeController controller;
+  final bool isDesktop;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 240,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-      decoration: const BoxDecoration(
-        color: Color(0xFF020617),
-        border: Border(
-          right: BorderSide(
-            color: Color(0xFF111827),
-          ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          color: const Color(0xFF020617).withOpacity(0.85),
+          borderRadius: BorderRadius.circular(999),
+          border: Border.all(color: const Color(0xFF111827)),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'MyProfile',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 32),
-          Obx(
-            () => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (var i = 0; i < controller.sections.length; i++)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: _NavItem(
-                      label: controller.sections[i],
-                      selected: controller.currentSection.value == i,
-                      onTap: () => controller.changeSection(i),
-                    ),
-                  ),
-              ],
+        child: Row(
+          children: [
+            Container(
+              width: 28,
+              height: 28,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
-          ),
-          const Spacer(),
-          Text(
-            '© ${DateTime.now().year} My Name',
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-        ],
+            const SizedBox(width: 16),
+            Text(
+              'MyProfile',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            const Spacer(),
+            if (isDesktop)
+              Obx(
+                () => Row(
+                  children: [
+                    for (var i = 0; i < controller.sections.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: _NavItem(
+                          controller: controller,
+                          index: i,
+                          label: controller.sections[i],
+                          isDesktop: isDesktop,
+                        ),
+                      ),
+                    const SizedBox(width: 20),
+                    Text(
+                      'Our journal',
+                      style:
+                          Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                color: Colors.white70,
+                              ),
+                    ),
+                    const SizedBox(width: 12),
+                    FilledButton(
+                      onPressed: () {},
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 10,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                      ),
+                      child: const Text('Get started'),
+                    ),
+                  ],
+                ),
+              )
+            else
+              IconButton(
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    backgroundColor: const Color(0xFF020617),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(24)),
+                    ),
+                    builder: (context) {
+                      return SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Navigation',
+                                style:
+                                    Theme.of(context).textTheme.titleLarge,
+                              ),
+                              const SizedBox(height: 12),
+                              Obx(
+                                () => Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    for (var i = 0;
+                                        i < controller.sections.length;
+                                        i++)
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 4),
+                                        child: _NavItem(
+                                          controller: controller,
+                                          index: i,
+                                          label: controller.sections[i],
+                                          isDesktop: false,
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              FilledButton(
+                                onPressed: () {},
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: Colors.black,
+                                  minimumSize:
+                                      const Size.fromHeight(44),
+                                ),
+                                child: const Text('Get started'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                icon: const Icon(
+                  Icons.menu_rounded,
+                  color: Colors.white,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -144,34 +230,56 @@ class _SideBar extends StatelessWidget {
 
 class _NavItem extends StatelessWidget {
   const _NavItem({
+    required this.controller,
+    required this.index,
     required this.label,
-    required this.selected,
-    required this.onTap,
+    required this.isDesktop,
   });
 
+  final HomeController controller;
+  final int index;
   final String label;
-  final bool selected;
-  final VoidCallback onTap;
+  final bool isDesktop;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(999),
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: selected ? Colors.white.withOpacity(0.1) : Colors.transparent,
-          borderRadius: BorderRadius.circular(999),
-        ),
-        child: Text(
-          label,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Colors.white,
-                fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+    return MouseRegion(
+      onEnter: isDesktop
+          ? (_) => controller.setHoveredIndex(index)
+          : null,
+      onExit: isDesktop ? (_) => controller.clearHoveredIndex() : null,
+      child: Obx(
+        () {
+          final selected = controller.currentSection.value == index;
+          final hovered = controller.hoveredIndex.value == index;
+          final isActive = selected || hovered;
+
+          return InkWell(
+            borderRadius: BorderRadius.circular(999),
+            onTap: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              controller.onNavTap(index);
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color:
+                    isActive ? Colors.white.withOpacity(0.16) : Colors.transparent,
+                borderRadius: BorderRadius.circular(999),
               ),
-        ),
+              child: Text(
+                label,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Colors.white,
+                      fontWeight:
+                          selected ? FontWeight.w600 : FontWeight.w400,
+                    ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -246,22 +354,61 @@ class _HeroSection extends StatelessWidget {
     );
 
     final avatar = Container(
-      width: 260,
-      height: 260,
+      constraints: BoxConstraints(
+        maxWidth: isWide ? 520 : double.infinity,
+        minHeight: 260,
+        maxHeight: isWide ? 360 : 320,
+      ),
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(32),
         gradient: const LinearGradient(
-          colors: [Color(0xFF38BDF8), Color(0xFF6366F1)],
+          colors: [
+            Color(0xFF0F172A),
+            Color(0xFF0B1220),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      padding: const EdgeInsets.all(6),
-      child: ClipOval(
-        child: Image.network(
-          'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg',
-          fit: BoxFit.cover,
-        ),
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.network(
+              'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg',
+              fit: BoxFit.cover,
+              color: Colors.black.withOpacity(0.4),
+              colorBlendMode: BlendMode.darken,
+            ),
+          ),
+          Positioned.fill(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.transparent,
+                    const Color(0xFF0B1120).withOpacity(0.9),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Text(
+                '/PROFILE',
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                      fontSize: 54,
+                      letterSpacing: 2,
+                    ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
 

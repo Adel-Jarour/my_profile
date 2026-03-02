@@ -13,6 +13,10 @@ class HomeController extends GetxController {
   ];
 
   final currentSection = 0.obs;
+  final hoveredIndex = (-1).obs;
+
+  /// Keys for scrolling to each section.
+  final List<GlobalKey> sectionKeys = [];
 
   final skills = const [
     'Flutter',
@@ -41,9 +45,36 @@ class HomeController extends GetxController {
     },
   ];
 
-  void changeSection(int index) {
+  @override
+  void onInit() {
+    super.onInit();
+    sectionKeys.addAll(List.generate(sections.length, (_) => GlobalKey()));
+  }
+
+  void onNavTap(int index) {
     currentSection.value = index;
-    // In a real design, you might scroll to anchors here.
+    _scrollToSection(index);
+  }
+
+  void setHoveredIndex(int index) {
+    hoveredIndex.value = index;
+  }
+
+  void clearHoveredIndex() {
+    hoveredIndex.value = -1;
+  }
+
+  void _scrollToSection(int index) {
+    if (index < 0 || index >= sectionKeys.length) return;
+    final context = sectionKeys[index].currentContext;
+    if (context == null) return;
+
+    Scrollable.ensureVisible(
+      context,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeInOutCubic,
+      alignment: 0.1,
+    );
   }
 
   @override
