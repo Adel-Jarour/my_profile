@@ -114,45 +114,42 @@ class _HeaderBar extends StatelessWidget {
             ),
             const Spacer(),
             if (isDesktop)
-              Obx(
-                () => Row(
-                  children: [
-                    for (var i = 0; i < controller.sections.length; i++)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
-                        child: _NavItem(
-                          controller: controller,
-                          index: i,
-                          label: controller.sections[i],
-                          isDesktop: isDesktop,
-                        ),
+              Row(
+                children: [
+                  for (var i = 0; i < controller.sections.length; i++)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      child: _NavItem(
+                        controller: controller,
+                        index: i,
+                        label: controller.sections[i],
+                        isDesktop: isDesktop,
                       ),
-                    const SizedBox(width: 20),
-                    Text(
-                      'Our journal',
-                      style:
-                          Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                color: Colors.white70,
-                              ),
                     ),
-                    const SizedBox(width: 12),
-                    FilledButton(
-                      onPressed: () {},
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 18,
-                          vertical: 10,
+                  const SizedBox(width: 20),
+                  Text(
+                    'Our journal',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Colors.white70,
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(999),
-                        ),
+                  ),
+                  const SizedBox(width: 12),
+                  FilledButton(
+                    onPressed: () {},
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 10,
                       ),
-                      child: const Text('Get started'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(999),
+                      ),
                     ),
-                  ],
-                ),
+                    child: const Text('Get started'),
+                  ),
+                ],
               )
             else
               IconButton(
@@ -178,25 +175,23 @@ class _HeaderBar extends StatelessWidget {
                                     Theme.of(context).textTheme.titleLarge,
                               ),
                               const SizedBox(height: 12),
-                              Obx(
-                                () => Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    for (var i = 0;
-                                        i < controller.sections.length;
-                                        i++)
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 4),
-                                        child: _NavItem(
-                                          controller: controller,
-                                          index: i,
-                                          label: controller.sections[i],
-                                          isDesktop: false,
-                                        ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  for (var i = 0;
+                                      i < controller.sections.length;
+                                      i++)
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 4),
+                                      child: _NavItem(
+                                        controller: controller,
+                                        index: i,
+                                        label: controller.sections[i],
+                                        isDesktop: false,
                                       ),
-                                  ],
-                                ),
+                                    ),
+                                ],
                               ),
                               const SizedBox(height: 16),
                               FilledButton(
