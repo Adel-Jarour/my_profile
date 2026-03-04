@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'home_controller.dart';
+import '../../../controller/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -16,43 +16,42 @@ class HomeView extends GetView<HomeController> {
           final isDesktop = maxWidth >= 1024;
 
           return SingleChildScrollView(
-              controller: controller.scrollController,
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _HeaderBar(
-                    controller: controller,
-                    isDesktop: isDesktop,
-                  ),
-                  const SizedBox(height: 40),
-                  Container(
-                    key: controller.sectionKeys[0],
-                    child: _HeroSection(isWide: isDesktop),
-                  ),
-                  const SizedBox(height: 80),
-                  Container(
-                    key: controller.sectionKeys[1],
-                    child: _AboutSection(),
-                  ),
-                  const SizedBox(height: 80),
-                  Container(
-                    key: controller.sectionKeys[2],
-                    child: _SkillsSection(),
-                  ),
-                  const SizedBox(height: 80),
-                  Container(
-                    key: controller.sectionKeys[3],
-                    child: _ProjectsSection(),
-                  ),
-                  const SizedBox(height: 80),
-                  Container(
-                    key: controller.sectionKeys[4],
-                    child: _ContactSection(),
-                  ),
-                  const SizedBox(height: 40),
-                ],
-              ),
+            controller: controller.scrollController,
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _HeaderBar(
+                  controller: controller,
+                  isDesktop: isDesktop,
+                ),
+                const SizedBox(height: 40),
+                Container(
+                  key: controller.sectionKeys[0],
+                  child: _HeroSection(isWide: isDesktop),
+                ),
+                const SizedBox(height: 80),
+                Container(
+                  key: controller.sectionKeys[1],
+                  child: _AboutSection(),
+                ),
+                const SizedBox(height: 80),
+                Container(
+                  key: controller.sectionKeys[2],
+                  child: _SkillsSection(),
+                ),
+                const SizedBox(height: 80),
+                Container(
+                  key: controller.sectionKeys[3],
+                  child: _ProjectsSection(),
+                ),
+                const SizedBox(height: 80),
+                Container(
+                  key: controller.sectionKeys[4],
+                  child: _ContactSection(),
+                ),
+                const SizedBox(height: 40),
+              ],
             ),
           );
         },
@@ -158,8 +157,7 @@ class _HeaderBar extends StatelessWidget {
                             children: [
                               Text(
                                 'Navigation',
-                                style:
-                                    Theme.of(context).textTheme.titleLarge,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                               const SizedBox(height: 12),
                               Column(
@@ -169,8 +167,7 @@ class _HeaderBar extends StatelessWidget {
                                       i < controller.sections.length;
                                       i++)
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 4),
+                                      padding: const EdgeInsets.only(bottom: 4),
                                       child: _NavItem(
                                         controller: controller,
                                         index: i,
@@ -186,8 +183,7 @@ class _HeaderBar extends StatelessWidget {
                                 style: FilledButton.styleFrom(
                                   backgroundColor: Colors.white,
                                   foregroundColor: Colors.black,
-                                  minimumSize:
-                                      const Size.fromHeight(44),
+                                  minimumSize: const Size.fromHeight(44),
                                 ),
                                 child: const Text('Get started'),
                               ),
@@ -226,9 +222,7 @@ class _NavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: isDesktop
-          ? (_) => controller.setHoveredIndex(index)
-          : null,
+      onEnter: isDesktop ? (_) => controller.setHoveredIndex(index) : null,
       onExit: isDesktop ? (_) => controller.clearHoveredIndex() : null,
       child: Obx(
         () {
@@ -244,8 +238,7 @@ class _NavItem extends StatelessWidget {
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
                 color: isActive
                     ? const Color(0xFFfa824c).withOpacity(0.12)
@@ -256,8 +249,7 @@ class _NavItem extends StatelessWidget {
                 label,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: const Color(0xFF323639),
-                      fontWeight:
-                          selected ? FontWeight.w600 : FontWeight.w400,
+                      fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
                     ),
               ),
             ),
@@ -706,4 +698,3 @@ class _ContactPillButton extends StatelessWidget {
     );
   }
 }
-

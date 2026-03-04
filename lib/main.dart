@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'src/routes/app_pages.dart';
+import 'package:my_profile/const/color_const.dart';
+import 'package:my_profile/routes/app_pages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,30 +19,30 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.routes,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFfa824c), // primary
-          primary: const Color(0xFFfa824c),
-          secondary: const Color(0xFFebeae6),
-          surface: const Color(0xFFebeae6),
+          seedColor: ColorConst.primaryColor,
+          primary: ColorConst.primaryColor,
+          secondary: ColorConst.secondColor,
+          surface: ColorConst.secondColor,
           onPrimary: Colors.white,
-          onSecondary: const Color(0xFF323639),
-          onSurface: const Color(0xFF323639),
+          onSecondary: ColorConst.thirdColor,
+          onSurface: ColorConst.thirdColor,
         ),
-        scaffoldBackgroundColor: const Color(0xFFebeae6), // second color
+        scaffoldBackgroundColor: ColorConst.secondColor,
         useMaterial3: true,
-        textTheme: const TextTheme(
+        textTheme: TextTheme(
           displayLarge: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF323639), // third color
+            color: ColorConst.thirdColor,
           ),
           titleLarge: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF323639),
+            color: ColorConst.thirdColor,
           ),
           bodyMedium: TextStyle(
             fontSize: 14,
-            color: Color(0xFF323639),
+            color: ColorConst.thirdColor,
           ),
         ),
       ),
