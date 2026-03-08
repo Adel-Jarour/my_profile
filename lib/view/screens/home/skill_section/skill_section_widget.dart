@@ -4,6 +4,7 @@ import 'package:my_profile/config/translation/strings_enum.dart';
 import 'package:my_profile/const/color_const.dart';
 import 'package:my_profile/controller/home_controller.dart';
 import 'package:my_profile/view/screens/home/widget/custom_section_container.dart';
+import 'package:my_profile/view/widget/custom_text.dart';
 
 class SkillsSection extends GetView<HomeController> {
   const SkillsSection({super.key});
@@ -18,7 +19,7 @@ class SkillsSection extends GetView<HomeController> {
         children: controller.skills
             .map(
               (skill) => Chip(
-                label: Text(skill.skill),
+                label: CustomText(skill.skill),
                 backgroundColor: ColorConst.secondColor,
                 side: const BorderSide(color: ColorConst.thirdColor),
                 labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -31,3 +32,4 @@ class SkillsSection extends GetView<HomeController> {
     );
   }
 }
+

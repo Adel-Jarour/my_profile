@@ -3,6 +3,8 @@ import 'package:my_profile/config/translation/strings_enum.dart';
 import 'package:my_profile/const/color_const.dart';
 import 'package:my_profile/controller/home_controller.dart';
 import 'package:my_profile/view/screens/home/widget/nav_item_widget.dart';
+import 'package:my_profile/view/widget/custom_button.dart';
+import 'package:my_profile/view/widget/custom_text.dart';
 
 class HeaderBarWidget extends StatelessWidget {
   const HeaderBarWidget({
@@ -38,7 +40,7 @@ class HeaderBarWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            Text(
+            CustomText(
               Strings.logoTitle,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: ColorConst.thirdColor,
@@ -60,91 +62,36 @@ class HeaderBarWidget extends StatelessWidget {
                       ),
                     ),
                   const SizedBox(width: 20),
-                  Text(
+                  CustomText(
                     Strings.journalLabel,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: ColorConst.thirdColor.withValues(alpha: 0.6),
                         ),
                   ),
                   const SizedBox(width: 12),
-                  FilledButton(
+                  CustomButton(
+                    label: Strings.getStarted,
                     onPressed: () {},
-                    style: FilledButton.styleFrom(
-                      backgroundColor: ColorConst.primaryColor,
-                      foregroundColor: ColorConst.whiteColor,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 18,
-                        vertical: 10,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(999),
-                      ),
+                    backgroundColor: ColorConst.primaryColor,
+                    foregroundColor: ColorConst.whiteColor,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 10,
                     ),
-                    child: const Text(Strings.getStarted),
                   ),
                 ],
               )
             else
-              IconButton(
-                onPressed: () {
-                  showModalBottomSheet<void>(
-                    context: context,
-                    backgroundColor: ColorConst.secondColor,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(24)),
+              Builder(
+                builder: (context) {
+                  return IconButton(
+                    onPressed: Scaffold.of(context).openDrawer,
+                    icon: const Icon(
+                      Icons.menu_rounded,
+                      color: ColorConst.thirdColor,
                     ),
-                    builder: (context) {
-                      return SafeArea(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                Strings.navigationTitle,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              const SizedBox(height: 12),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  for (var i = 0;
-                                      i < controller.sections.length;
-                                      i++)
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 4),
-                                      child: NavItemWidget(
-                                        controller: controller,
-                                        index: i,
-                                        label: controller.sections[i].title,
-                                        isDesktop: false,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                              const SizedBox(height: 16),
-                              FilledButton(
-                                onPressed: () {},
-                                style: FilledButton.styleFrom(
-                                  backgroundColor: ColorConst.whiteColor,
-                                  foregroundColor: ColorConst.blackColor,
-                                  minimumSize: const Size.fromHeight(44),
-                                ),
-                                child: const Text(Strings.getStarted),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
                   );
                 },
-                icon: const Icon(
-                  Icons.menu_rounded,
-                  color: ColorConst.thirdColor,
-                ),
               ),
           ],
         ),
@@ -152,3 +99,4 @@ class HeaderBarWidget extends StatelessWidget {
     );
   }
 }
+

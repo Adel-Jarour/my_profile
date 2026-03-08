@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_profile/config/translation/strings_enum.dart';
 import 'package:my_profile/const/color_const.dart';
+import 'package:my_profile/view/widget/custom_text.dart';
 
 class CustomProjectCard extends StatelessWidget {
   const CustomProjectCard({
@@ -28,13 +29,13 @@ class CustomProjectCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            CustomText(
               title,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
             Expanded(
-              child: Text(
+              child: CustomText(
                 description,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
@@ -43,7 +44,7 @@ class CustomProjectCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                CustomText(
                   Strings.viewDetails,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: ColorConst.primaryColor,
@@ -62,3 +63,4 @@ class CustomProjectCard extends StatelessWidget {
     );
   }
 }
+

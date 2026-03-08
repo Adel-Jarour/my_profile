@@ -4,8 +4,10 @@ import 'package:my_profile/config/translation/strings_enum.dart';
 import 'package:my_profile/controller/home_controller.dart';
 import 'package:my_profile/view/screens/home/contact_section/custom_contact_item.dart';
 import 'package:my_profile/view/screens/home/widget/custom_section_container.dart';
+import 'package:my_profile/view/widget/custom_text.dart';
 
 class ContactSection extends GetView<HomeController> {
+  const ContactSection({super.key});
   @override
   Widget build(BuildContext context) {
     return CustomSectionContainer(
@@ -13,7 +15,7 @@ class ContactSection extends GetView<HomeController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          CustomText(
             Strings.contactCta,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
@@ -35,3 +37,5 @@ class ContactSection extends GetView<HomeController> {
     );
   }
 }
+
+

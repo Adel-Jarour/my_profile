@@ -3,12 +3,32 @@ import 'package:get/get.dart';
 
 import '../config/translation/strings_enum.dart';
 import '../models/contacts_model.dart';
+import '../models/profile_info_model.dart';
 import '../models/projects_model.dart';
 import '../models/sections_model.dart';
 import '../models/skills_model.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
+
+  final profileInfo = const ProfileInfoModel(
+    name: 'Your Name',
+    email: 'your.email@example.com',
+    imageUrl:
+        'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg',
+    role: 'Flutter Developer - Mobile & Web',
+    greeting: 'Hi, I\'m',
+    heroDescription:
+        'I build fast, responsive applications with Flutter and GetX. '
+        'Clean architecture, smooth animations and pixel-perfect UI.',
+    aboutDescription:
+        'I am a Flutter developer focused on building high-quality mobile and web '
+        'applications. I enjoy crafting clean UIs, managing state with GetX, and '
+        'structuring apps using clean architecture principles.',
+    profileTag: '/PROFILE',
+    location: 'Your City, Country',
+    portfolio: 'your-portfolio-link.com',
+  );
 
   final sections = const [
     SectionsModel(id: 1, title: Strings.navHome),
@@ -45,13 +65,13 @@ class HomeController extends GetxController {
     ),
   ];
 
-  final contacts = const [
-    ContactsModel(id: 1, icon: Icons.mail_outline, label: Strings.contactEmail),
-    ContactsModel(id: 2, icon: Icons.link, label: Strings.contactPortfolio),
+  late final List<ContactsModel> contacts = [
+    ContactsModel(id: 1, icon: Icons.mail_outline, label: profileInfo.email),
+    ContactsModel(id: 2, icon: Icons.link, label: profileInfo.portfolio),
     ContactsModel(
       id: 3,
       icon: Icons.location_on_outlined,
-      label: Strings.contactLocation,
+      label: profileInfo.location,
     ),
   ];
 
@@ -98,3 +118,4 @@ class HomeController extends GetxController {
     super.onClose();
   }
 }
+

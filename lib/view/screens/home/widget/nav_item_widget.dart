@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_profile/const/color_const.dart';
 import 'package:my_profile/controller/home_controller.dart';
-import 'package:get/get.dart';
+import 'package:my_profile/view/widget/custom_text.dart';
 
 class NavItemWidget extends StatelessWidget {
   const NavItemWidget({
@@ -31,7 +32,9 @@ class NavItemWidget extends StatelessWidget {
           return InkWell(
             borderRadius: BorderRadius.circular(999),
             onTap: () {
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              if (!isDesktop && Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
               controller.onNavTap(index);
             },
             child: AnimatedContainer(
@@ -43,7 +46,7 @@ class NavItemWidget extends StatelessWidget {
                     : ColorConst.transparentColor,
                 borderRadius: BorderRadius.circular(999),
               ),
-              child: Text(
+              child: CustomText(
                 label,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: ColorConst.thirdColor,
@@ -57,3 +60,4 @@ class NavItemWidget extends StatelessWidget {
     );
   }
 }
+

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_profile/const/color_const.dart';
+import 'package:my_profile/view/widget/custom_text.dart';
 
 class CustomContactPillButton extends StatelessWidget {
   const CustomContactPillButton({
@@ -26,7 +27,7 @@ class CustomContactPillButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(width: 16),
-            Text(
+            CustomText(
               label,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: ColorConst.whiteColor,
@@ -57,3 +58,4 @@ class CustomContactPillButton extends StatelessWidget {
     );
   }
 }
+

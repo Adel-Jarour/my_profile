@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_profile/const/color_const.dart';
+import 'package:my_profile/view/widget/custom_text.dart';
 
 class CustomSectionContainer extends StatelessWidget {
   const CustomSectionContainer({
@@ -24,7 +25,7 @@ class CustomSectionContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          CustomText(
             title,
             style: Theme.of(context).textTheme.titleLarge,
           ),
@@ -35,3 +36,4 @@ class CustomSectionContainer extends StatelessWidget {
     );
   }
 }
+

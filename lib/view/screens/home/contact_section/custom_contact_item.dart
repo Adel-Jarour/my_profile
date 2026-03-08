@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_profile/const/color_const.dart';
+import 'package:my_profile/view/widget/custom_text.dart';
 
 class CustomContactItem extends StatelessWidget {
   const CustomContactItem({
@@ -30,7 +31,7 @@ class CustomContactItem extends StatelessWidget {
             color: ColorConst.thirdColor,
           ),
           const SizedBox(width: 8),
-          Text(
+          CustomText(
             label,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
@@ -39,3 +40,4 @@ class CustomContactItem extends StatelessWidget {
     );
   }
 }
+
