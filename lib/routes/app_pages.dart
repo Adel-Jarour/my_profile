@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_profile/view/screens/home/home_binding.dart';
+import 'package:my_profile/binding/home_binding.dart';
 import 'package:my_profile/view/screens/home/home_view.dart';
 import 'app_routes.dart';
 
