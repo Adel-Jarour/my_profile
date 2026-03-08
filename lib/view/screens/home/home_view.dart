@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../config/translation/strings_enum.dart';
+import '../../../const/color_const.dart';
 import '../../../controller/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -9,7 +11,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFebeae6),
+      backgroundColor: ColorConst.secondColor,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
@@ -76,9 +78,11 @@ class _HeaderBar extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: const Color(0xFFebeae6),
+          color: ColorConst.secondColor,
           borderRadius: BorderRadius.circular(999),
-          border: Border.all(color: const Color(0xFF323639).withOpacity(0.12)),
+          border: Border.all(
+            color: ColorConst.thirdColor.withValues(alpha: 0.12),
+          ),
         ),
         child: Row(
           children: [
@@ -86,15 +90,15 @@ class _HeaderBar extends StatelessWidget {
               width: 28,
               height: 28,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: ColorConst.whiteColor,
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
             const SizedBox(width: 16),
             Text(
-              'MyProfile',
+              Strings.logoTitle,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: const Color(0xFF323639),
+                    color: ColorConst.thirdColor,
                     fontWeight: FontWeight.w600,
                   ),
             ),
@@ -108,23 +112,23 @@ class _HeaderBar extends StatelessWidget {
                       child: _NavItem(
                         controller: controller,
                         index: i,
-                        label: controller.sections[i],
+                        label: controller.sections[i].title,
                         isDesktop: isDesktop,
                       ),
                     ),
                   const SizedBox(width: 20),
                   Text(
-                    'Our journal',
+                    Strings.journalLabel,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: const Color(0xFF323639).withOpacity(0.6),
+                          color: ColorConst.thirdColor.withValues(alpha: 0.6),
                         ),
                   ),
                   const SizedBox(width: 12),
                   FilledButton(
                     onPressed: () {},
                     style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFFfa824c),
-                      foregroundColor: Colors.white,
+                      backgroundColor: ColorConst.primaryColor,
+                      foregroundColor: ColorConst.whiteColor,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 18,
                         vertical: 10,
@@ -133,7 +137,7 @@ class _HeaderBar extends StatelessWidget {
                         borderRadius: BorderRadius.circular(999),
                       ),
                     ),
-                    child: const Text('Get started'),
+                    child: const Text(Strings.getStarted),
                   ),
                 ],
               )
@@ -142,7 +146,7 @@ class _HeaderBar extends StatelessWidget {
                 onPressed: () {
                   showModalBottomSheet<void>(
                     context: context,
-                    backgroundColor: const Color(0xFFebeae6),
+                    backgroundColor: ColorConst.secondColor,
                     shape: const RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(24)),
@@ -156,7 +160,7 @@ class _HeaderBar extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Navigation',
+                                Strings.navigationTitle,
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                               const SizedBox(height: 12),
@@ -171,7 +175,7 @@ class _HeaderBar extends StatelessWidget {
                                       child: _NavItem(
                                         controller: controller,
                                         index: i,
-                                        label: controller.sections[i],
+                                        label: controller.sections[i].title,
                                         isDesktop: false,
                                       ),
                                     ),
@@ -181,11 +185,11 @@ class _HeaderBar extends StatelessWidget {
                               FilledButton(
                                 onPressed: () {},
                                 style: FilledButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  foregroundColor: Colors.black,
+                                  backgroundColor: ColorConst.whiteColor,
+                                  foregroundColor: ColorConst.blackColor,
                                   minimumSize: const Size.fromHeight(44),
                                 ),
-                                child: const Text('Get started'),
+                                child: const Text(Strings.getStarted),
                               ),
                             ],
                           ),
@@ -196,7 +200,7 @@ class _HeaderBar extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.menu_rounded,
-                  color: Color(0xFF323639),
+                  color: ColorConst.thirdColor,
                 ),
               ),
           ],
@@ -241,14 +245,14 @@ class _NavItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
                 color: isActive
-                    ? const Color(0xFFfa824c).withOpacity(0.12)
-                    : Colors.transparent,
+                    ? ColorConst.primaryColor.withValues(alpha: 0.12)
+                    : ColorConst.transparentColor,
                 borderRadius: BorderRadius.circular(999),
               ),
               child: Text(
                 label,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: const Color(0xFF323639),
+                      color: ColorConst.thirdColor,
                       fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
                     ),
               ),
@@ -270,25 +274,24 @@ class _HeroSection extends StatelessWidget {
     final content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Hi, I\'m', style: Theme.of(context).textTheme.bodyMedium),
+        Text(Strings.heroGreeting, style: Theme.of(context).textTheme.bodyMedium),
         const SizedBox(height: 8),
         Text(
-          'Your Name',
+          Strings.heroName,
           style: Theme.of(context).textTheme.displayLarge,
         ),
         const SizedBox(height: 12),
         Text(
-          'Flutter Developer • Mobile & Web',
+          Strings.heroRole,
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                color: const Color(0xFFfa824c),
+                color: ColorConst.primaryColor,
               ),
         ),
         const SizedBox(height: 16),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 520),
           child: Text(
-            'I build fast, responsive applications with Flutter and GetX. '
-            'Clean architecture, smooth animations and pixel‑perfect UI.',
+            Strings.heroDescription,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
@@ -298,13 +301,13 @@ class _HeroSection extends StatelessWidget {
           runSpacing: 12,
           children: [
             _ContactPillButton(
-              label: 'Contact',
+              label: Strings.navContact,
               onTap: () => Get.find<HomeController>().onNavTap(4),
             ),
             OutlinedButton.icon(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Color(0xFFfa824c)),
+                side: const BorderSide(color: ColorConst.primaryColor),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                 shape: RoundedRectangleBorder(
@@ -312,7 +315,7 @@ class _HeroSection extends StatelessWidget {
                 ),
               ),
               icon: const Icon(Icons.picture_as_pdf_outlined),
-              label: const Text('Download CV'),
+              label: const Text(Strings.downloadCv),
             ),
           ],
         ),
@@ -329,8 +332,8 @@ class _HeroSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(32),
         gradient: const LinearGradient(
           colors: [
-            Color(0xFF323639),
-            Color(0xFF131516),
+            ColorConst.thirdColor,
+            ColorConst.darkColor,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -341,9 +344,9 @@ class _HeroSection extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.network(
-              'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg',
+              Strings.heroImageUrl,
               fit: BoxFit.cover,
-              color: Colors.black.withOpacity(0.3),
+              color: ColorConst.blackColor.withValues(alpha: 0.3),
               colorBlendMode: BlendMode.darken,
             ),
           ),
@@ -352,8 +355,8 @@ class _HeroSection extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.transparent,
-                    const Color(0xFF131516).withOpacity(0.92),
+                    ColorConst.transparentColor,
+                    ColorConst.darkColor.withValues(alpha: 0.92),
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -366,7 +369,7 @@ class _HeroSection extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(24),
               child: Text(
-                '/PROFILE',
+                Strings.heroProfileTag,
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       fontSize: 54,
                       letterSpacing: 2,
@@ -404,11 +407,9 @@ class _AboutSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _SectionContainer(
-      title: 'About',
+      title: Strings.navAbout,
       child: Text(
-        'I am a Flutter developer focused on building high‑quality mobile and web '
-        'applications. I enjoy crafting clean UIs, managing state with GetX, and '
-        'structuring apps using clean architecture principles.',
+        Strings.aboutDescription,
         style: Theme.of(context).textTheme.bodyMedium,
       ),
     );
@@ -419,18 +420,18 @@ class _SkillsSection extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return _SectionContainer(
-      title: 'Skills',
+      title: Strings.navSkills,
       child: Wrap(
         spacing: 12,
         runSpacing: 12,
         children: controller.skills
             .map(
               (skill) => Chip(
-                label: Text(skill),
-                backgroundColor: const Color(0xFFebeae6),
-                side: const BorderSide(color: Color(0xFF323639)),
+                label: Text(skill.skill),
+                backgroundColor: ColorConst.secondColor,
+                side: const BorderSide(color: ColorConst.thirdColor),
                 labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: const Color(0xFF323639),
+                      color: ColorConst.thirdColor,
                     ),
               ),
             )
@@ -444,7 +445,7 @@ class _ProjectsSection extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return _SectionContainer(
-      title: 'Projects',
+      title: Strings.navProjects,
       child: LayoutBuilder(
         builder: (context, constraints) {
           final crossAxisCount = constraints.maxWidth > 1000
@@ -465,8 +466,8 @@ class _ProjectsSection extends GetView<HomeController> {
             itemBuilder: (context, index) {
               final project = controller.projects[index];
               return _ProjectCard(
-                title: project['title']!,
-                description: project['description']!,
+                title: project.title,
+                description: project.description,
               );
             },
           );
@@ -476,36 +477,30 @@ class _ProjectsSection extends GetView<HomeController> {
   }
 }
 
-class _ContactSection extends StatelessWidget {
+class _ContactSection extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return _SectionContainer(
-      title: 'Contact',
+      title: Strings.navContact,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Let\'s work together on your next project.',
+            Strings.contactCta,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 16),
           Wrap(
             spacing: 16,
             runSpacing: 12,
-            children: const [
-              _ContactItem(
-                icon: Icons.mail_outline,
-                label: 'your.email@example.com',
-              ),
-              _ContactItem(
-                icon: Icons.link,
-                label: 'your-portfolio-link.com',
-              ),
-              _ContactItem(
-                icon: Icons.location_on_outlined,
-                label: 'Your City, Country',
-              ),
-            ],
+            children: controller.contacts
+                .map(
+                  (contact) => _ContactItem(
+                    icon: contact.icon,
+                    label: contact.label,
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),
@@ -528,9 +523,9 @@ class _SectionContainer extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConst.whiteColor,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFF323639).withOpacity(0.1)),
+        border: Border.all(color: ColorConst.thirdColor.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -563,9 +558,9 @@ class _ProjectCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Ink(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: ColorConst.whiteColor,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: const Color(0xFF323639).withOpacity(0.1)),
+          border: Border.all(color: ColorConst.thirdColor.withValues(alpha: 0.1)),
         ),
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -587,15 +582,15 @@ class _ProjectCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'View details',
+                  Strings.viewDetails,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: const Color(0xFFfa824c),
+                        color: ColorConst.primaryColor,
                       ),
                 ),
                 const Icon(
                   Icons.arrow_outward_rounded,
                   size: 18,
-                  color: Color(0xFFfa824c),
+                  color: ColorConst.primaryColor,
                 ),
               ],
             ),
@@ -620,9 +615,9 @@ class _ContactItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFFebeae6),
+        color: ColorConst.secondColor,
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: const Color(0xFF323639).withOpacity(0.18)),
+        border: Border.all(color: ColorConst.thirdColor.withValues(alpha: 0.18)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -630,7 +625,7 @@ class _ContactItem extends StatelessWidget {
           Icon(
             icon,
             size: 18,
-            color: const Color(0xFF323639),
+            color: ColorConst.thirdColor,
           ),
           const SizedBox(width: 8),
           Text(
@@ -660,7 +655,7 @@ class _ContactPillButton extends StatelessWidget {
         height: 44,
         padding: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
-          color: const Color(0xFFfa824c),
+          color: ColorConst.primaryColor,
           borderRadius: BorderRadius.circular(999),
         ),
         child: Row(
@@ -670,7 +665,7 @@ class _ContactPillButton extends StatelessWidget {
             Text(
               label,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Colors.white,
+                    color: ColorConst.whiteColor,
                     fontWeight: FontWeight.w600,
                   ),
             ),
@@ -679,17 +674,17 @@ class _ContactPillButton extends StatelessWidget {
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: ColorConst.whiteColor,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: const Color(0xFFfa824c),
+                  color: ColorConst.primaryColor,
                   width: 2,
                 ),
               ),
               child: const Icon(
                 Icons.south_east_rounded,
                 size: 16,
-                color: Color(0xFF323639),
+                color: ColorConst.thirdColor,
               ),
             ),
           ],

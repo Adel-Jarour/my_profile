@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_profile/config/translation/strings_enum.dart';
 import 'package:my_profile/const/color_const.dart';
 import 'package:my_profile/routes/app_pages.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'My Profile',
+      title: Strings.appTitle,
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
       theme: ThemeData(
@@ -23,13 +24,13 @@ class MyApp extends StatelessWidget {
           primary: ColorConst.primaryColor,
           secondary: ColorConst.secondColor,
           surface: ColorConst.secondColor,
-          onPrimary: Colors.white,
+          onPrimary: ColorConst.whiteColor,
           onSecondary: ColorConst.thirdColor,
           onSurface: ColorConst.thirdColor,
         ),
         scaffoldBackgroundColor: ColorConst.secondColor,
         useMaterial3: true,
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.bold,
