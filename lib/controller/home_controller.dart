@@ -31,11 +31,11 @@ class HomeController extends GetxController {
   );
 
   final sections = const [
-    SectionsModel(id: 1, title: Strings.navHome),
-    SectionsModel(id: 2, title: Strings.navAbout),
-    SectionsModel(id: 3, title: Strings.navSkills),
-    SectionsModel(id: 4, title: Strings.navProjects),
-    SectionsModel(id: 5, title: Strings.navContact),
+    SectionsModel(id: 0, title: Strings.navHome),
+    SectionsModel(id: 1, title: Strings.navAbout),
+    SectionsModel(id: 2, title: Strings.navSkills),
+    SectionsModel(id: 3, title: Strings.navProjects),
+    SectionsModel(id: 4, title: Strings.navContact),
   ];
 
   final skills = const [
@@ -108,7 +108,7 @@ class HomeController extends GetxController {
       context,
       duration: const Duration(milliseconds: 600),
       curve: Curves.easeInOutCubic,
-      alignment: 0.1,
+      alignment: 0.0,
     );
   }
 
@@ -118,4 +118,6 @@ class HomeController extends GetxController {
     super.onClose();
   }
 }
+
+
 

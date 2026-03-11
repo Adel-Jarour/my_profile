@@ -17,8 +17,8 @@ class CustomContactPillButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 44,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        height: 48,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           color: ColorConst.primaryColor,
           borderRadius: BorderRadius.circular(999),
@@ -58,4 +58,3 @@ class CustomContactPillButton extends StatelessWidget {
     );
   }
 }
-

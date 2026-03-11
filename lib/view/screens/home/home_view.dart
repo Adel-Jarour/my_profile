@@ -19,51 +19,84 @@ class HomeView extends GetView<HomeController> {
       builder: (context, constraints) {
         final maxWidth = constraints.maxWidth;
         final isDesktop = maxWidth >= 1024;
+        final horizontalPadding = isDesktop ? 32.0 : 20.0;
+        final heroMinHeight = (MediaQuery.of(context).size.height - 120).clamp(0.0, double.infinity);
 
         return Scaffold(
           backgroundColor: ColorConst.secondColor,
           drawer: isDesktop ? null : CustomDrawer(),
-          body: SingleChildScrollView(
+          body: CustomScrollView(
             controller: controller.scrollController,
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                HeaderBarWidget(
-                  controller: controller,
-                  isDesktop: isDesktop,
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                backgroundColor: ColorConst.secondColor,
+                elevation: 0,
+                toolbarHeight: 88,
+                titleSpacing: 0,
+                title: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    horizontalPadding,
+                    12,
+                    horizontalPadding,
+                    12,
+                  ),
+                  child: HeaderBarWidget(
+                    controller: controller,
+                    isDesktop: isDesktop,
+                  ),
                 ),
-                const SizedBox(height: 40),
-                Container(
-                  key: controller.sectionKeys[0],
-                  child: HeroSection(isWide: isDesktop),
+              ),
+              SliverPadding(
+                padding: EdgeInsets.fromLTRB(
+                  horizontalPadding,
+                  12,
+                  horizontalPadding,
+                  40,
                 ),
-                const SizedBox(height: 80),
-                Container(
-                  key: controller.sectionKeys[1],
-                  child: const AboutSection(),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      Container(
+                        key: controller.sectionKeys[0],
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(minHeight: heroMinHeight),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: HeroSection(isWide: isDesktop),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 80),
+                      Container(
+                        key: controller.sectionKeys[1],
+                        child: const AboutSection(),
+                      ),
+                      const SizedBox(height: 80),
+                      Container(
+                        key: controller.sectionKeys[2],
+                        child: const SkillsSection(),
+                      ),
+                      const SizedBox(height: 80),
+                      Container(
+                        key: controller.sectionKeys[3],
+                        child: const ProjectsSection(),
+                      ),
+                      const SizedBox(height: 80),
+                      Container(
+                        key: controller.sectionKeys[4],
+                        child: const ContactSection(),
+                      ),
+                      const SizedBox(height: 40),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 80),
-                Container(
-                  key: controller.sectionKeys[2],
-                  child: const SkillsSection(),
-                ),
-                const SizedBox(height: 80),
-                Container(
-                  key: controller.sectionKeys[3],
-                  child: const ProjectsSection(),
-                ),
-                const SizedBox(height: 80),
-                Container(
-                  key: controller.sectionKeys[4],
-                  child: const ContactSection(),
-                ),
-                const SizedBox(height: 40),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
     );
   }
 }
+

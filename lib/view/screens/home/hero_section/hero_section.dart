@@ -58,14 +58,15 @@ class HeroSection extends StatelessWidget {
               icon: Icons.picture_as_pdf_outlined,
               outlined: true,
               borderColor: ColorConst.primaryColor,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              minimumSize: const Size(0, 48),
             ),
           ],
         ),
       ],
     );
 
-    final avatar = Container(
+    final codingVisual = Container(
       constraints: BoxConstraints(
         maxWidth: isWide ? 520 : double.infinity,
         minHeight: 260,
@@ -81,30 +82,77 @@ class HeroSection extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
+        border: Border.all(
+          color: ColorConst.thirdColor.withValues(alpha: 0.12),
+        ),
       ),
-      clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
-          Positioned.fill(
-            child: Image.network(
-              profile.imageUrl,
-              fit: BoxFit.cover,
-              color: ColorConst.blackColor.withValues(alpha: 0.3),
-              colorBlendMode: BlendMode.darken,
+          Positioned(
+            top: -40,
+            right: -20,
+            child: _GlowCircle(
+              size: 160,
+              color: ColorConst.primaryColor.withValues(alpha: 0.2),
             ),
           ),
-          Positioned.fill(
-            child: DecoratedBox(
+          Positioned(
+            bottom: -50,
+            left: -30,
+            child: _GlowCircle(
+              size: 200,
+              color: ColorConst.whiteColor.withValues(alpha: 0.08),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: 120,
+              height: 120,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    ColorConst.transparentColor,
-                    ColorConst.darkColor.withValues(alpha: 0.92),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                color: ColorConst.whiteColor.withValues(alpha: 0.08),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: ColorConst.whiteColor.withValues(alpha: 0.2),
                 ),
               ),
+              child: const Icon(
+                Icons.terminal_rounded,
+                color: ColorConst.whiteColor,
+                size: 48,
+              ),
+            ),
+          ),
+          const Positioned(
+            top: 24,
+            left: 24,
+            child: _SkillBadge(
+              icon: Icons.code_rounded,
+              label: 'Dart',
+            ),
+          ),
+          const Positioned(
+            top: 84,
+            right: 24,
+            child: _SkillBadge(
+              icon: Icons.cloud_outlined,
+              label: 'API',
+            ),
+          ),
+          const Positioned(
+            bottom: 24,
+            right: 24,
+            child: _SkillBadge(
+              icon: Icons.phone_iphone_rounded,
+              label: 'Flutter',
+            ),
+          ),
+          const Positioned(
+            bottom: 84,
+            left: 24,
+            child: _SkillBadge(
+              icon: Icons.auto_awesome_rounded,
+              label: 'UI',
             ),
           ),
           Align(
@@ -114,8 +162,9 @@ class HeroSection extends StatelessWidget {
               child: CustomText(
                 profile.profileTag,
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 54,
-                      letterSpacing: 2,
+                      fontSize: 40,
+                      letterSpacing: 1.2,
+                      color: ColorConst.whiteColor.withValues(alpha: 0.75),
                     ),
               ),
             ),
@@ -130,7 +179,7 @@ class HeroSection extends StatelessWidget {
         children: [
           Expanded(child: content),
           const SizedBox(width: 40),
-          avatar,
+          codingVisual,
         ],
       );
     }
@@ -138,7 +187,7 @@ class HeroSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(child: avatar),
+        codingVisual,
         const SizedBox(height: 32),
         content,
       ],
@@ -146,3 +195,66 @@ class HeroSection extends StatelessWidget {
   }
 }
 
+class _SkillBadge extends StatelessWidget {
+  const _SkillBadge({
+    required this.icon,
+    required this.label,
+  });
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      decoration: BoxDecoration(
+        color: ColorConst.secondColor.withValues(alpha: 0.85),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(
+          color: ColorConst.whiteColor.withValues(alpha: 0.1),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            color: ColorConst.whiteColor,
+            size: 16,
+          ),
+          const SizedBox(width: 8),
+          CustomText(
+            label,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: ColorConst.whiteColor,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GlowCircle extends StatelessWidget {
+  const _GlowCircle({
+    required this.size,
+    required this.color,
+  });
+
+  final double size;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+      ),
+    );
+  }
+}
