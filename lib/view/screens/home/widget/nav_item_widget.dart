@@ -30,7 +30,6 @@ class NavItemWidget extends StatelessWidget {
           final isActive = selected || hovered;
 
           return InkWell(
-            borderRadius: BorderRadius.circular(999),
             onTap: () {
               if (!isDesktop && Navigator.of(context).canPop()) {
                 Navigator.of(context).pop();
@@ -39,12 +38,16 @@ class NavItemWidget extends StatelessWidget {
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
-                color: isActive
-                    ? ColorConst.primaryColor.withValues(alpha: 0.12)
-                    : ColorConst.transparentColor,
-                borderRadius: BorderRadius.circular(999),
+                border: Border(
+                  bottom: BorderSide(
+                    color: isActive
+                        ? ColorConst.primaryColor
+                        : Colors.transparent,
+                    width: 2,
+                  ),
+                ),
               ),
               child: CustomText(
                 label,
@@ -60,4 +63,3 @@ class NavItemWidget extends StatelessWidget {
     );
   }
 }
-

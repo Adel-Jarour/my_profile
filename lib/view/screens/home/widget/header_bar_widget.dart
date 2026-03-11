@@ -17,42 +17,23 @@ class HeaderBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 56,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        color: ColorConst.secondColor.withValues(alpha: 0.92),
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(
-          color: ColorConst.thirdColor.withValues(alpha: 0.12),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: ColorConst.blackColor.withValues(alpha: 0.12),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
       child: Row(
         children: [
           Container(
             width: 32,
             height: 32,
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  ColorConst.primaryColor,
-                  ColorConst.thirdColor,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              color: ColorConst.whiteColor,
               borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: ColorConst.thirdColor.withValues(alpha: 0.15),
+              ),
             ),
             child: const Icon(
               Icons.code_rounded,
-              color: ColorConst.whiteColor,
+              color: ColorConst.thirdColor,
               size: 18,
             ),
           ),

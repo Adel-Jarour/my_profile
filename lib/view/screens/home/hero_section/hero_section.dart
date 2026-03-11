@@ -76,98 +76,56 @@ class HeroSection extends StatelessWidget {
         maxHeight: isWide ? 360 : 320,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(32),
-        gradient: const LinearGradient(
-          colors: [
-            ColorConst.thirdColor,
-            ColorConst.darkColor,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        borderRadius: BorderRadius.circular(28),
+        color: ColorConst.whiteColor,
         border: Border.all(
-          color: ColorConst.thirdColor.withValues(alpha: 0.12),
+          color: ColorConst.thirdColor.withValues(alpha: 0.08),
         ),
       ),
       child: Stack(
         children: [
           Positioned(
-            top: -40,
-            right: -20,
-            child: _GlowCircle(
-              size: 160,
-              color: ColorConst.primaryColor.withValues(alpha: 0.2),
-            ),
+            top: 26,
+            left: 26,
+            child: _CodeLine(width: 120),
           ),
           Positioned(
-            bottom: -50,
-            left: -30,
-            child: _GlowCircle(
-              size: 200,
-              color: ColorConst.whiteColor.withValues(alpha: 0.08),
-            ),
+            top: 54,
+            left: 26,
+            child: _CodeLine(width: 90),
           ),
-          Align(
-            alignment: Alignment.center,
+          Positioned(
+            bottom: 32,
+            right: 32,
+            child: _CodeLine(width: 140),
+          ),
+          Center(
             child: Container(
-              width: 120,
-              height: 120,
+              width: 96,
+              height: 96,
               decoration: BoxDecoration(
-                color: ColorConst.whiteColor.withValues(alpha: 0.08),
                 shape: BoxShape.circle,
+                color: ColorConst.secondColor,
                 border: Border.all(
-                  color: ColorConst.whiteColor.withValues(alpha: 0.2),
+                  color: ColorConst.thirdColor.withValues(alpha: 0.15),
                 ),
               ),
               child: const Icon(
                 Icons.terminal_rounded,
-                color: ColorConst.whiteColor,
-                size: 48,
+                color: ColorConst.thirdColor,
+                size: 42,
               ),
-            ),
-          ),
-          const Positioned(
-            top: 24,
-            left: 24,
-            child: _SkillBadge(
-              icon: Icons.code_rounded,
-              label: 'Dart',
-            ),
-          ),
-          const Positioned(
-            top: 84,
-            right: 24,
-            child: _SkillBadge(
-              icon: Icons.cloud_outlined,
-              label: 'API',
-            ),
-          ),
-          const Positioned(
-            bottom: 24,
-            right: 24,
-            child: _SkillBadge(
-              icon: Icons.phone_iphone_rounded,
-              label: 'Flutter',
-            ),
-          ),
-          const Positioned(
-            bottom: 84,
-            left: 24,
-            child: _SkillBadge(
-              icon: Icons.auto_awesome_rounded,
-              label: 'UI',
             ),
           ),
           Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               child: CustomText(
                 profile.profileTag,
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 40,
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       letterSpacing: 1.2,
-                      color: ColorConst.whiteColor.withValues(alpha: 0.75),
+                      color: ColorConst.thirdColor.withValues(alpha: 0.7),
                     ),
               ),
             ),
@@ -198,65 +156,19 @@ class HeroSection extends StatelessWidget {
   }
 }
 
-class _SkillBadge extends StatelessWidget {
-  const _SkillBadge({
-    required this.icon,
-    required this.label,
-  });
+class _CodeLine extends StatelessWidget {
+  const _CodeLine({required this.width});
 
-  final IconData icon;
-  final String label;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      width: width,
+      height: 8,
       decoration: BoxDecoration(
-        color: ColorConst.secondColor.withValues(alpha: 0.85),
+        color: ColorConst.thirdColor.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(
-          color: ColorConst.whiteColor.withValues(alpha: 0.1),
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: ColorConst.whiteColor,
-            size: 16,
-          ),
-          const SizedBox(width: 8),
-          CustomText(
-            label,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: ColorConst.whiteColor,
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _GlowCircle extends StatelessWidget {
-  const _GlowCircle({
-    required this.size,
-    required this.color,
-  });
-
-  final double size;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color,
       ),
     );
   }

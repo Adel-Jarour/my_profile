@@ -19,8 +19,10 @@ class CustomSectionContainer extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: ColorConst.whiteColor,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: ColorConst.thirdColor.withValues(alpha: 0.1)),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: ColorConst.thirdColor.withValues(alpha: 0.06),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,4 +38,3 @@ class CustomSectionContainer extends StatelessWidget {
     );
   }
 }
-
