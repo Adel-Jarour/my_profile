@@ -10,6 +10,7 @@ class ProfileInfoModel {
     required this.profileTag,
     required this.location,
     required this.portfolio,
+    required this.cvUrl,
   });
 
   final String name;
@@ -22,5 +23,5 @@ class ProfileInfoModel {
   final String profileTag;
   final String location;
   final String portfolio;
+  final String cvUrl;
 }
-

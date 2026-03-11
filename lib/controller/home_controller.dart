@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../config/translation/strings_enum.dart';
 import '../models/contacts_model.dart';
@@ -28,6 +29,7 @@ class HomeController extends GetxController {
     profileTag: '/PROFILE',
     location: 'Your City, Country',
     portfolio: 'your-portfolio-link.com',
+    cvUrl: 'https://example.com/your-cv.pdf',
   );
 
   final sections = const [
@@ -84,6 +86,10 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     sectionKeys.addAll(List.generate(sections.length, (_) => GlobalKey()));
+    scrollController.addListener(_onScroll);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateCurrentSectionFromScroll();
+    });
   }
 
   void onNavTap(int index) {
@@ -97,6 +103,40 @@ class HomeController extends GetxController {
 
   void clearHoveredIndex() {
     hoveredIndex.value = -1;
+  }
+
+  void _onScroll() {
+    _updateCurrentSectionFromScroll();
+  }
+
+  void _updateCurrentSectionFromScroll() {
+    if (sectionKeys.isEmpty) return;
+
+    const topThreshold = 140.0;
+    var activeIndex = 0;
+
+    for (var i = 0; i < sectionKeys.length; i++) {
+      final context = sectionKeys[i].currentContext;
+      if (context == null) continue;
+      final renderObject = context.findRenderObject();
+      if (renderObject is! RenderBox) continue;
+
+      final position = renderObject.localToGlobal(Offset.zero);
+      if (position.dy <= topThreshold) {
+        activeIndex = i;
+      }
+    }
+
+    if (currentSection.value != activeIndex) {
+      currentSection.value = activeIndex;
+    }
+  }
+
+  Future<void> launchCv() async {
+    final uri = Uri.parse(profileInfo.cvUrl);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      return;
+    }
   }
 
   void _scrollToSection(int index) {
@@ -114,10 +154,8 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
+    scrollController.removeListener(_onScroll);
     scrollController.dispose();
     super.onClose();
   }
 }
-
-
-
