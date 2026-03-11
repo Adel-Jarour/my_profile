@@ -50,36 +50,19 @@ class HeaderBarWidget extends StatelessWidget {
             const Spacer(),
             if (isDesktop)
               Row(
-                children: [
-                  for (var i = 0; i < controller.sections.length; i++)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: NavItemWidget(
-                        controller: controller,
-                        index: i,
-                        label: controller.sections[i].title,
-                        isDesktop: isDesktop,
-                      ),
-                    ),
-                  const SizedBox(width: 20),
-                  CustomText(
-                    Strings.journalLabel,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: ColorConst.thirdColor.withValues(alpha: 0.6),
+                children: controller.sections
+                    .map(
+                      (e) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: NavItemWidget(
+                          controller: controller,
+                          index: e.id,
+                          label: e.title,
+                          isDesktop: isDesktop,
                         ),
-                  ),
-                  const SizedBox(width: 12),
-                  CustomButton(
-                    label: Strings.getStarted,
-                    onPressed: () {},
-                    backgroundColor: ColorConst.primaryColor,
-                    foregroundColor: ColorConst.whiteColor,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 10,
-                    ),
-                  ),
-                ],
+                      ),
+                    )
+                    .toList(),
               )
             else
               Builder(
@@ -99,4 +82,3 @@ class HeaderBarWidget extends StatelessWidget {
     );
   }
 }
-
